@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 import requests, time
 
-f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data.txt" ,"a")
-errorFile = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/error.txt" ,"w")
+f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/data.txt" ,"a")
+errorFile = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/error.txt" ,"w")
 
 #list of skills
 skills = ['java','.net', 'c','frontend','android','ios','qa','linux','js','php','python','ruby','game-dev']
@@ -28,30 +28,34 @@ url="http://startit.rs/poslovi/"
 for skill in skills:
 
 	response = requests.get(url+skill)
-
+	print url+skill
 	#check status code
-	if r.status_code != requests.codes.ok:
+	if response.status_code != requests.codes.ok:
 		print 'status code not ok'
 		break
 
-	try:
+	#try:
 		#read response content
-		result = response.content
+	result = response.content
 
-		#make BeautifulSoup object
-		soup = BeautifulSoup(result, 'html.parser')
+			#make BeautifulSoup object
+	soup = BeautifulSoup(result, 'html.parser')
 
-		#find the demand
-        div = find("div",{class:"poslovi-headline"})
+			#find the demand
 
-		demand = div.find("table", {"class" : "tablesaw compact"}
+	title = soup.h1.get_text()
 
-        skills_dict[skill] = demand
+	        # find the length of the word before the number
+	text_length = len(title)
 
-        f.write(skills_dict[skill]+"\t")
+	demand = title
+	        #demand = title[text_length:]
+	skills_dict[skill] = demand
 
-    except Exception as e:
-            errorFile.write("Error on line: "+str(x)+"********"+str(e)+"**********"+"\n")
-            pass
+	f.write(skills_dict[skill]+"\t")
+
+    #except Exception as e:
+      #      errorFile.write("Error on line: "+str(x)+"********"+str(e)+"**********"+"\n")
+     #       pass
 
 f.write("\n")
