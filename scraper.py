@@ -45,20 +45,28 @@ for skill in skills:
 
 	t = soup.h1.get_text()
 
-	title = str(t)
+	first_letter = skill[0]
+
+	title = str(t).rstrip()
+
+	index = title.index(first_letter)
+
+	title = title[index:]
 	        # find the length of the word before the number
-	text_length = len(title)
+	text_length = len(skill)
 
 	demand = title
-	        #demand = title[text_length:]
+
+	demand = title[text_length:]
+
 	skills_dict[skill] = demand
 
-	print len(skills_dict[skill])
-
-	f.write(skills_dict[skill].rstrip()+",")
+	#print len(skills_dict[skill])
+	
+	f.write(skills_dict[skill] +",")
 
     #except Exception as e:
       #      errorFile.write("Error on line: "+str(x)+"********"+str(e)+"**********"+"\n")
      #       pass
 
-#f.write("\n")
+f.write("\n")
