@@ -4,6 +4,8 @@ import requests, time
 f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/data.txt" ,"a")
 errorFile = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/error.txt" ,"w")
 
+f.write(time.strftime("%d/%m/%Y",))
+
 #list of skills
 skills = ['java','.net', 'c','frontend','android','ios','qa','linux','js','php','python','ruby','game-dev']
 
