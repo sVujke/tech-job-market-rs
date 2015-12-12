@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests, time
 
+start = time.time()
+
 f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/data.txt" ,"a")
 errorFile = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/error.txt" ,"w")
 
@@ -30,7 +32,6 @@ url="http://startit.rs/poslovi/"
 for skill in skills:
 
 	response = requests.get(url+skill)
-	print url+skill
 	#check status code
 	if response.status_code != requests.codes.ok:
 		print 'status code not ok'
@@ -72,3 +73,10 @@ for skill in skills:
      #       pass
 
 f.write("\n")
+
+time = time.time()-start
+
+if(time > 60):
+	print 'It took', time/60, 'minutes.'
+else: 
+	print 'It took', time, 'seconds.'
