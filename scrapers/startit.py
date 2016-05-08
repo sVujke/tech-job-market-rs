@@ -51,7 +51,9 @@ def get_tags_s(ad):
 def get_firm_s(po):
     return po.find('div',class_="oglas-mini-header").get_text()
 
-
+# general methods
+def find_ads(css_class_name):
+    return soup.find_all("div", class_="css_class_name")
 #base URL
 url="http://startit.rs/poslovi/"
 
@@ -62,11 +64,10 @@ result = response.content
 
 soup = BeautifulSoup(result, 'html.parser')
 
-l = soup.h1.get_text()
-print len(l)
+premium_ads = find_ads("listing-oglas-premium")
+standard_ads = find_ads("listing-oglas-standard")
+mini_ads = find_ads("oglas-mini")
 
-k = soup.find_all("div", class_="listing-oglas-premium")
-print k[0].h1.get_text()
 	# response = requests.get(url+skill)
 	# print url+skill
 	# #check status code
