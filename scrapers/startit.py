@@ -1,12 +1,13 @@
 from bs4 import BeautifulSoup
 import requests, time
+from os import path
 import scrape_lib
 
 start = time.time()
 
 # f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/data.txt" ,"a")
 # errorFile = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/error.txt" ,"w")
-
+f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/datanovi.txt" ,"a")
 # scraper methods
 
 # methods for PREMIUM and STANDARD ads
@@ -52,8 +53,8 @@ def get_firm_s(po):
     return po.find('div',class_="oglas-mini-header").get_text()
 
 # general methods
-def find_ads(css_class_name):
-    return soup.find_all("div", class_="css_class_name")
+#def find_ads(css_class_name):
+#    return soup.find_all("div", class_="css_class_name")
 #base URL
 url="http://startit.rs/poslovi/"
 
