@@ -64,10 +64,11 @@ result = response.content
 
 soup = BeautifulSoup(result, 'html.parser')
 
-premium_ads = find_ads("listing-oglas-premium")
-standard_ads = find_ads("listing-oglas-standard")
-mini_ads = find_ads("oglas-mini")
+premium_ads = soup.find_all("div", class_="listing-oglas-premium")
+standard_ads = soup.find_all("div", class_="listing-oglas-standard")
+mini_ads = soup.find_all("div", class_="oglas-mini")
 
+#print premium_ads
 	# response = requests.get(url+skill)
 	# print url+skill
 	# #check status code
