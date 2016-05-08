@@ -17,7 +17,11 @@ result = response.content
 
 soup = BeautifulSoup(result, 'html.parser')
 
-print soup.h1.get_text()
+l = soup.h1.get_text()
+print len(l)
+
+k = soup.find_all("div", class_="listing-oglas-premium")
+print k[0].h1.get_text()
 	# response = requests.get(url+skill)
 	# print url+skill
 	# #check status code
