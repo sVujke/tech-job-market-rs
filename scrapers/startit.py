@@ -5,6 +5,15 @@ import scrape_lib
 # f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/data.txt" ,"a")
 # errorFile = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/error.txt" ,"w")
 
+# scraper methods
+
+# methods for premium ads
+
+# methods for standard ads
+def get_position(ad):
+    return ad[1].get_text()
+
+# methods for mini ads
 start = time.time()
 
 #base URL
