@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests, time
 from os import path
+from datetime import date
 import scrape_lib
 
 start = time.time()
@@ -53,6 +54,10 @@ def get_firm_s(po):
     return po.find('div',class_="oglas-mini-header").get_text()
 
 # general methods
+def curent_date_str():
+    d = date.today()
+    d = d.strftime("%d/%m/%y")
+    return d
 #def find_ads(css_class_name):
 #    return soup.find_all("div", class_="css_class_name")
 #base URL
