@@ -35,6 +35,15 @@ def get_tags(ad):
         tag_str = tag_str + str(tag.get_text())+" "
     tag_str = tag_str.lower()
     return tag_str
+
+def get_tags_list(ad):
+    tag_list = []
+    tags = ad[3:]
+    for tag in tags:
+        t = tag.get_text().lower()
+        tag_list.append(t)
+    return tag_list
+
 # methods for MINI ads
 def get_city_s(ad):
     return ad[1].get_text()
@@ -53,19 +62,20 @@ def get_tags_s(ad):
 def get_firm_s(po):
     return po.find('div',class_="oglas-mini-header").get_text()
 
+
+def get_tags_list_s(ad):
+    tag_list = []
+    tags = ad[2:]
+    for tag in tags:
+        t = tag.get_text().lower()
+        tag_list.append(t)
+    return tag_list
+
 # general methods
 def current_date_str():
     d = date.today()
     d = d.strftime("%d/%m/%y")
     return d
-
-def get_tags_list(ad):
-    tag_list = []
-    tags = ad[3:]
-    for tag in tags:
-        t = tag.get_text().lower()
-        tag_list.append(t)
-    return tag_list
 
 def make_ad_list(ads):
 
@@ -90,6 +100,28 @@ def make_ad_list(ads):
     return ads_list
 
 
+def make_ad_list_s(ads):
+
+    ads_list = []
+    i = 0
+    for ad in ads:
+            ad_dict = {}
+            add = ad.find_all('a')
+            ad_dict['date'] = current_date_str()
+            #print get_position(add)
+            ad_dict['position'] = get_position_s(add)
+
+            ad_dict['firm'] = get_firm_s(ad)
+            #print get_city(ad)
+            ad_dict['city'] = get_city_s(add).encode('utf-8')
+            ad_dict['tags'] = get_tags_list_s(add)
+            #print unicode(ad_dict, 'utf-8')
+            #print unicode(ad_dict, 'utf-8').encode('utf-8')
+            ads_list.append(ad_dict)
+            #print standard_adds_list
+            #i = i+1
+            #print i
+    return ads_list
 #def find_ads(css_class_name):
 #    return soup.find_all("div", class_="css_class_name")
 #base URL
