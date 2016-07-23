@@ -8,7 +8,7 @@ start = time.time()
 
 # f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/data.txt" ,"a")
 # errorFile = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/error.txt" ,"w")
-f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/datanovi.txt" ,"a")
+#f = open("C:/Users/vujke/Documents/GitHub/tech-job-market-rs/data/datanovi.txt" ,"a")
 # scraper methods
 
 # methods for PREMIUM and STANDARD ads
@@ -58,6 +58,8 @@ def curent_date_str():
     d = date.today()
     d = d.strftime("%d/%m/%y")
     return d
+
+
 #def find_ads(css_class_name):
 #    return soup.find_all("div", class_="css_class_name")
 #base URL
@@ -73,6 +75,9 @@ soup = BeautifulSoup(result, 'html.parser')
 premium_ads = soup.find_all("div", class_="listing-oglas-premium")
 standard_ads = soup.find_all("div", class_="listing-oglas-standard")
 mini_ads = soup.find_all("div", class_="oglas-mini")
+
+print get_city(premium_ads[0])
+
 
 #print premium_ads
 	# response = requests.get(url+skill)
