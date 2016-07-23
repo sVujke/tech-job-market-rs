@@ -54,10 +54,40 @@ def get_firm_s(po):
     return po.find('div',class_="oglas-mini-header").get_text()
 
 # general methods
-def curent_date_str():
+def current_date_str():
     d = date.today()
     d = d.strftime("%d/%m/%y")
     return d
+
+def get_tags_list(ad):
+    tag_list = []
+    tags = ad[3:]
+    for tag in tags:
+        t = tag.get_text().lower()
+        tag_list.append(t)
+    return tag_list
+
+def make_ad_list(ads):
+
+    ads_list = []
+    i = 0
+    for ad in ads:
+            ad_dict = {}
+            add = ad.find_all('a')
+            ad_dict['date'] = current_date_str()
+            #print get_position(add)
+            ad_dict['position'] = get_position(add)
+            ad_dict['firm'] = get_firm(add)
+            #print get_city(ad)
+            ad_dict['city'] = get_city(ad).encode('utf-8')
+            ad_dict['tags'] = get_tags_list(add)
+            #print unicode(ad_dict, 'utf-8')
+            #print unicode(ad_dict, 'utf-8').encode('utf-8')
+            ads_list.append(ad_dict)
+            #print standard_adds_list
+            #i = i+1
+            #print i
+    return ads_list
 
 
 #def find_ads(css_class_name):
