@@ -16,11 +16,15 @@ start = time.time()
 def get_city(po):
     firm_city = po.find_all('div',class_="listing-ime-firme")
     city = firm_city[1].get_text()
+    #print city
     city = city.split(' ')[3:]
+    #print city
     cities = ""
-    for c in city:
-        cities = cities+str(c)
-    return cities
+    #print ' '.join(city)
+    #for c in city:
+    #    print "EVO: ", c
+    #    cities = cities+str(c).encode('utf8')
+    return ' '.join(city)
 # PARAMETER ad is a list of all <a> tags
 def get_position(ad):
     return ad[1].get_text()
@@ -77,7 +81,7 @@ def current_date_str():
     d = d.strftime("%d/%m/%y")
     return d
 
-def make_ad_list(ads):
+def make_ad_list(ads, type):
 
     ads_list = []
     i = 0
@@ -85,6 +89,7 @@ def make_ad_list(ads):
             ad_dict = {}
             add = ad.find_all('a')
             ad_dict['date'] = current_date_str()
+            ad_dict['ad_type'] = type
             #print get_position(add)
             ad_dict['position'] = get_position(add)
             ad_dict['firm'] = get_firm(add)
@@ -100,7 +105,7 @@ def make_ad_list(ads):
     return ads_list
 
 
-def make_ad_list_s(ads):
+def make_ad_list_s(ads, type):
 
     ads_list = []
     i = 0
@@ -108,6 +113,7 @@ def make_ad_list_s(ads):
             ad_dict = {}
             add = ad.find_all('a')
             ad_dict['date'] = current_date_str()
+            ad_dict['ad_type'] = type
             #print get_position(add)
             ad_dict['position'] = get_position_s(add)
 
@@ -138,7 +144,21 @@ premium_ads = soup.find_all("div", class_="listing-oglas-premium")
 standard_ads = soup.find_all("div", class_="listing-oglas-standard")
 mini_ads = soup.find_all("div", class_="oglas-mini")
 
-print get_city(premium_ads[0])
+print "PREMIUM ADS: ",make_ad_list(premium_ads, "premium ads")
+print"""
+#
+#
+#
+#
+"""
+print "STANDARD ADS: ",make_ad_list(standard_ads, "standard ads")
+print"""
+#
+#
+#
+#
+"""
+print "MINI ADS: ",make_ad_list_s(mini_ads, "mini ads")
 
 
 #print premium_ads
