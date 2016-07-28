@@ -3,6 +3,8 @@ import requests, time
 from os import path
 from datetime import date
 import scrape_lib
+import mongo_lib
+import pprint
 
 start = time.time()
 
@@ -144,56 +146,48 @@ premium_ads = soup.find_all("div", class_="listing-oglas-premium")
 standard_ads = soup.find_all("div", class_="listing-oglas-standard")
 mini_ads = soup.find_all("div", class_="oglas-mini")
 
-print "PREMIUM ADS: ",make_ad_list(premium_ads, "premium ads")
-print"""
+# making lists of dictionaries
+premium_ads = make_ad_list(premium_ads, "premium ads")
+standard_ads = make_ad_list(standard_ads, "standard ads")
+mini_ads = make_ad_list_s(mini_ads, "mini ads")
+
+#print "PREMIUM ADS: ",make_ad_list(premium_ads, "premium ads")
+#print"""
 #
 #
 #
 #
-"""
-print "STANDARD ADS: ",make_ad_list(standard_ads, "standard ads")
-print"""
+#"""
+#print "STANDARD ADS: ",make_ad_list(standard_ads, "standard ads")
+#print"""
 #
 #
 #
 #
-"""
-print "MINI ADS: ",make_ad_list_s(mini_ads, "mini ads")
+#"""
+#print "MINI ADS: ",make_ad_list_s(mini_ads, "mini ads")
+
+#
+#
+# mongoDB
+#
+#
+
+db, collection =mongo_lib.connect_client('jobs_db','job_posts')
+#collection.insert(premium_ads)
 
 
-#print premium_ads
-	# response = requests.get(url+skill)
-	# print url+skill
-	# #check status code
-	# if response.status_code != requests.codes.ok:
-	# 	print 'status code not ok'
-	# 	break
-    #
-	# #try:
-	# 	#read response content
-	# result = response.content
-    #
-	# 		#make BeautifulSoup object
-	# soup = BeautifulSoup(result, 'html.parser')
-    #
-	# 		#find the demand
-    #
-	# title = soup.h1.get_text()
-    #
-	#         # find the length of the word before the number
-	# text_length = len(title)
-    #
-	# demand = title
-	#         #demand = title[text_length:]
-	# skills_dict[skill] = demand
-    #
-	# f.write(skills_dict[skill]+"\t")
+collection.insert(premium_ads)
+collection.insert(standard_ads)
+collection.insert(mini_ads)
 
-    #except Exception as e:
-      #      errorFile.write("Error on line: "+str(x)+"********"+str(e)+"**********"+"\n")
-     #       pass
+query_set = collection.find()
+print query_set.count()
 
-#f.write("\n")
+#for i in query_set:
+#    pprint.pprint(i)
+
+#collection.remove()
 
 time = time.time()-start
 scrape_lib.print_time(time)
